@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/images/caf.jpg";
 import Loading from "../loaders/Loading";
+import axios from "axios";
 
 function Login() {
 
@@ -60,7 +61,7 @@ function Login() {
                     {isLoading ? <Loading /> : "Entrar"}
                 </button>
             </Forms>
-            <Link to={"/login"}>
+            <Link to={"/sign-up"}>
                 Primeira vez? Cadastre-se!
             </Link>
         </Container>
@@ -77,9 +78,6 @@ const Container = styled.div`
     background-color: #ffffff;
 
     a {
-        width: 283px;
-        height: 23px;
-
         font-family: 'Roboto';
         font-style: normal;
         font-weight: 400;
@@ -91,12 +89,13 @@ const Container = styled.div`
 `;
 
 const InfoLogo = styled.div`
-    width: 312px;
-    height: 58px;
+    width: 260px;
+    height: 76px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  
 
     img {
         width: 98px;
@@ -117,7 +116,7 @@ const InfoLogo = styled.div`
 
 const Forms = styled.form`
     width: 312px;
-    height: 338px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
