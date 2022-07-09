@@ -8,8 +8,7 @@ function InitialScreen () {
 
     const navigate = useNavigate();
 
-    setTimeout(() => navigate("/login"), TIME_3S)
-
+    setTimeout(() => navigate("/login"), TIME_3S);
 
     return (
         <Container>
