@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import logo from "../assets/images/caf.jpg"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Loading from "../loaders/Loading";
+import axios from "axios";
 
 function SignUp() {
 
@@ -12,11 +13,25 @@ function SignUp() {
     const [email, setEmail] = useState("");
     
     const [isLoading, setIsLoading] = useState(false)
+    const navigate = useNavigate();
 
     function sign(event) {
         event.preventDefault()
+
         setIsLoading(true)
-        setTimeout(() => setIsLoading(false), 2000)
+        
+        if(password !== confirmPassword) {
+            setIsLoading(false)
+            alert("Senha e confirmar senha são diferentes!")
+        }
+
+        const URL= `${process.env.REACT_APP_API_BASE_URL}/sign-up`;
+        const  body = {name, email, password};
+
+        const promise = axios.post(URL, body, {});
+
+        promise.then(() => {setIsLoading(false); navigate("/login")})
+            .catch(err =>  {setIsLoading(false); alert(err.response.statusText)})
     }
 
     return (
