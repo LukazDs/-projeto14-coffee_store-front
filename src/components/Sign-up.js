@@ -23,6 +23,7 @@ function SignUp() {
         if(password !== confirmPassword) {
             setIsLoading(false)
             alert("Senha e confirmar senha são diferentes!")
+            return;
         }
 
         const URL= `${process.env.REACT_APP_API_BASE_URL}/sign-up`;
