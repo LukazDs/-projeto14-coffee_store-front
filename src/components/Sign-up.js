@@ -30,13 +30,13 @@ function SignUp() {
 
         const promise = axios.post(URL, body, {});
 
-        promise.then(() => {
+        promise.then(res => {
                     setIsLoading(false); 
                     navigate("/login"); 
-                    console.log(response.statusText)})
+                    console.log(res.statusText, "passou")})
                 .catch(err =>  {
                     setIsLoading(false);
-                    alert(err.response.statusText)})
+                    alert(err.statusText)})
     }
 
     return (
