@@ -1,20 +1,68 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/images/caf.jpg";
+import Loading from "../loaders/Loading";
 
 function Login() {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [token, setToken] = useState("");
+
+    const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
+
+    function login(event) {
+        event.preventDefault()
+
+        setIsLoading(true)
+
+        const URL = `${process.env.REACT_APP_API_BASE_URL}/login`;
+        const body = { password, email }
+
+        const promise = axios.post(URL, body)
+
+        promise.then((res) => {
+            setToken(res.data.token);
+            setIsLoading(false);
+            navigate("/registers")
+        })
+
+            .catch(err => {
+                setIsLoading(false);
+                alert(err.response.statusText)
+            })
+    }
+
     return (
         <Container>
             <InfoLogo>
-                <img src={logo} alt={logo}/>
+                <img src={logo} alt={logo} />
                 <span>CoffeeStore</span>
             </InfoLogo>
-            <Forms>
-                <input />
-                <input />
-                <button>
-                    Entrar
+            <Forms onSubmit={login}>
+                <input type="email"
+                    onChange={e => setEmail(e.target.value)}
+                    value={email}
+                    disabled={isLoading}
+                    placeholder='Email'
+                    required />
+
+                <input type="password"
+                    onChange={e => setPassword(e.target.value)}
+                    value={password}
+                    disabled={isLoading}
+                    placeholder='Senha'
+                    required />
+                <button disabled={isLoading}>
+                    {isLoading ? <Loading /> : "Entrar"}
                 </button>
             </Forms>
+            <Link to={"/login"}>
+                Primeira vez? Cadastre-se!
+            </Link>
         </Container>
     )
 }
