@@ -13,10 +13,16 @@ function SignUp() {
     
     const [isLoading, setIsLoading] = useState(false)
 
+    function sign(event) {
+        event.preventDefault()
+        setIsLoading(true)
+        setTimeout(() => setIsLoading(false), 2000)
+    }
+
     return (
         <Container>
             <Logo src={logo} alt={logo} />
-            <Forms>
+            <Forms onSubmit={sign}>
                 <input type="text"
                     onChange={e => setName(e.target.value)}
                     value={name}
@@ -113,6 +119,9 @@ const Forms = styled.form`
     button {
         width: 316px;
         height: 58px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
   
         background: #808080;
         border: 1px solid #000000;
