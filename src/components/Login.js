@@ -27,7 +27,7 @@ function Login() {
         promise.then((res) => {
             setToken(res.data.token);
             setIsLoading(false);
-            navigate("/registers")
+            navigate("/coffes")
         })
 
             .catch(err => {
