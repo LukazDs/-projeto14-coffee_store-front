@@ -6,6 +6,7 @@ import InitialScreen from "./components/InitialScreen";
 import SignUp from "./components/Sign-up";
 import Login from "./components/Login";
 import UserContext from "./contexts/UserContext";
+import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
                <Route path="/" element={<InitialScreen />} />
                <Route path="/sign-up" element={<SignUp />} />
                <Route path="/login" element={<Login />} />
+               <Route path="/shopping-cart" element={<ShoppingCart />} />
             </Routes>
          </BrowserRouter>
       </UserContext.Provider>
