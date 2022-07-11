@@ -1,19 +1,20 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/images/caf.jpg";
 import Loading from "../loaders/Loading";
 import axios from "axios";
+import UserContext from "../contexts/UserContext";
 
 function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [token, setToken] = useState("");
-
     const [isLoading, setIsLoading] = useState(false);
+
     const navigate = useNavigate();
+    const { setToken } = useContext(UserContext)
 
     function login(event) {
         event.preventDefault()
@@ -28,7 +29,7 @@ function Login() {
         promise.then((res) => {
             setToken(res.data.token);
             setIsLoading(false);
-            navigate("/coffes")
+            navigate("/coffees")
         })
 
             .catch(err => {
