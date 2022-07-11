@@ -1,47 +1,50 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 function ShoppingCart() {
-    
+
+    //const [isLoading, setIsLoading] = useState(false)
+    const [userProducts, setUserProducts] = useState([]);
+
+    useEffect(() => {
+        //setIsLoading(false);
+        const URL = `${process.env.REACT_APP_API_BASE_URL}/shopping-cart`;
+        const config = { headers: { "Authorization": `Bearer ${tokenValid}` } };
+        const promise = axios.get(URL, config);
+
+        promise
+            .then(res => {
+                setUserProducts(res.data);
+            })
+            .catch(err => {
+                console.log(err.response.statusText);
+            });
+    }, [])
+
+    function printProducts() {
+        userProducts.map((v, i) =>
+            <Product key={i}>
+                <img src={v.image} />
+                <span>
+                    {v.description}
+                </span>
+                <p>
+                    {v.date}
+                </p>
+                <Total>
+                    TOTAL: <b>R$ {
+                        (Number(v.value) * Number(v.quantity)).toFixed(2)}
+                    </b>
+                </Total>
+            </Product>
+        )
+    }
+
     return (
         <Container>
             {/* ///Topo */}
             <Products>
-                <Product>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdNaLi3i99JqpK-gELW1vERwVRUpT9MA9l9w&usqp=CAU" />
-                    <span>
-                        Café Especial Santo Grão Descafeinado em Grãos 500g
-                    </span>
-                    <p>
-                        Data: 07/07
-                    </p>
-                    <Total>
-                        TOTAL: <b>R$ 102,50</b>
-                    </Total>
-                </Product>
-                <Product>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdNaLi3i99JqpK-gELW1vERwVRUpT9MA9l9w&usqp=CAU" />
-                    <span>
-                        Café Especial Santo Grão Descafeinado em Grãos 500g
-                    </span>
-                    <p>
-                        Data: 07/07
-                    </p>
-                    <Total>
-                        TOTAL: <b>R$ 102,50</b>
-                    </Total>
-                </Product>
-                <Product>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdNaLi3i99JqpK-gELW1vERwVRUpT9MA9l9w&usqp=CAU" />
-                    <span>
-                        Café Especial Santo Grão Descafeinado em Grãos 500g
-                    </span>
-                    <p>
-                        Data: 07/07
-                    </p>
-                    <Total>
-                        TOTAL: <b>R$ 102,50</b>
-                    </Total>
-                </Product>
+                {printProducts}
             </Products>
             {/* ///Menu */}
         </Container>
