@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
+import axios from "axios";
 
 function ShoppingCart() {
 
     //const [isLoading, setIsLoading] = useState(false)
     const [userProducts, setUserProducts] = useState([]);
+    //const navigate = useNavigate();
+
+    const { token } = useContext(UserContext);
+
+    const tokenValid = !token ? localStorage.getItem("token") : token;
 
     useEffect(() => {
         //setIsLoading(false);
